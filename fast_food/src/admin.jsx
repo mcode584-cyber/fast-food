@@ -57,6 +57,26 @@ function Dashboard() {
             setLoginError('Could not connect to backend server. Make sure Django is running.');
         }
     };
+    const handleClearCancelled = async () => {
+        if (!window.confirm("هل أنت متأكد من حذف جميع الطلبات الملغاة نهائياً؟")) return;
+
+        try {
+            // 1. تصفية الطلبات الملغاة
+            const cancelledOrders = orders.filter(o => o.status === 'Cancelled');
+
+            // 2. حذف كل طلب من السيرفر
+            await Promise.all(cancelledOrders.map(order =>
+                fetch(`${API_BASE_URL}/orders/${order.id}/`, { method: 'DELETE' })
+            ));
+
+            // 3. تحديث الحالة في الواجهة
+            setOrders(prev => prev.filter(o => o.status !== 'Cancelled'));
+
+        } catch (err) {
+            console.error("خطأ أثناء حذف الطلبات:", err);
+            alert("حدث خطأ أثناء محاولة الحذف.");
+        }
+    };
     const handleDeleteOrder = async (id) => {
         if (!window.confirm('هل أنت متأكد؟')) return;
         try {
