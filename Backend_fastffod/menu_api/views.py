@@ -11,10 +11,17 @@ class FoodItemViewSet(viewsets.ModelViewSet):
     serializer_class = FoodItemSerializer
 
 class OrderViewSet(viewsets.ModelViewSet):
-    # استخدام الترتيب لجعل الأحدث يظهر أولاً
     queryset = Order.objects.all().order_by('-id')
     serializer_class = OrderSerializer
     pagination_class = None 
+
+    # إضافة طريقة الحذف بشكل صريح للتأكد
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response({"message": "Order deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+    # ... بقية الكود (create)
 
     def create(self, request, *args, **kwargs):
         data = request.data.copy()
