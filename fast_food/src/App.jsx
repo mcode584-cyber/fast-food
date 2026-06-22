@@ -12,7 +12,7 @@ function App() {
         <Route path="/" element={<FoodMenu />} />
 
 
-        <Route path="/Prochef" element={<Dashboard />} />
+        <Route path="/admin" element={<Dashboard />} />
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
