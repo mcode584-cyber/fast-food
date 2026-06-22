@@ -57,17 +57,25 @@ function Dashboard() {
             setLoginError('Could not connect to backend server. Make sure Django is running.');
         }
     };
-    const handleDeleteOrder = async (id) => {
-        if (!window.confirm('هل أنت متأكد من حذف هذا الطلب نهائياً؟')) return;
+    const handleClearCancelled = async () => {
+        // 1. طلب التأكيد
+        if (!window.confirm("هل أنت متأكد من حذف جميع الطلبات الملغاة نهائياً؟")) return;
+
         try {
-            const res = await fetch(`${API_BASE_URL}/orders/${id}/`, { method: 'DELETE' });
-            if (res.ok) {
-                setOrders(prev => prev.filter(o => o.id !== id));
-            } else {
-                alert("فشل حذف الطلب.");
-            }
+            // 2. جلب كل الطلبات الملغاة
+            const cancelledOrders = orders.filter(o => o.status === 'Cancelled');
+
+            // 3. إرسال طلب حذف لكل طلب (أو طلب واحد إذا كان الـ API يدعم ذلك)
+            await Promise.all(cancelledOrders.map(order =>
+                fetch(`${API_BASE_URL}/orders/${order.id}/`, { method: 'DELETE' })
+            ));
+
+            // 4. تحديث الحالة في الواجهة فوراً
+            setOrders(prev => prev.filter(o => o.status !== 'Cancelled'));
+
         } catch (err) {
-            console.error("Error deleting order:", err);
+            console.error("خطأ أثناء حذف الطلبات:", err);
+            alert("حدث خطأ أثناء محاولة الحذف.");
         }
     };
 
@@ -378,15 +386,10 @@ function Dashboard() {
                                 ))}
                             </div>
 
-                            {/* زر حذف الطلبات المحددة أو حذف الكل (كمثال توضيحي) */}
+                            {/* الربط الصحيح بالدالة */}
                             {orderFilter === 'Cancelled' && (
                                 <button
-                                    onClick={() => {
-                                        if (window.confirm("حذف جميع الطلبات الملغاة؟")) {
-                                            // يمكنك هنا تنفيذ منطق حذف متعدد أو تحديث الحالة
-                                            console.log("تم طلب حذف الطلبات الملغاة");
-                                        }
-                                    }}
+                                    onClick={handleClearCancelled}
                                     className="text-[10px] bg-rose-950/30 text-rose-500 px-3 py-1 rounded-lg border border-rose-900/50 hover:bg-rose-900 cursor-pointer font-bold"
                                 >
                                     🗑️ Clear Cancelled
