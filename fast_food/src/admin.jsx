@@ -57,7 +57,19 @@ function Dashboard() {
             setLoginError('Could not connect to backend server. Make sure Django is running.');
         }
     };
-
+    const handleDeleteOrder = async (id) => {
+        if (!window.confirm('هل أنت متأكد من حذف هذا الطلب نهائياً؟')) return;
+        try {
+            const res = await fetch(`${API_BASE_URL}/orders/${id}/`, { method: 'DELETE' });
+            if (res.ok) {
+                setOrders(prev => prev.filter(o => o.id !== id));
+            } else {
+                alert("فشل حذف الطلب.");
+            }
+        } catch (err) {
+            console.error("Error deleting order:", err);
+        }
+    };
 
     const fetchOrders = async () => {
         if (!isAdminAuthenticated) return;
@@ -353,12 +365,33 @@ function Dashboard() {
                         </section>
 
                         {/* فلترة الحالات */}
-                        <div className="flex flex-wrap gap-1.5 mb-6">
-                            {['All', 'New', 'Preparing', 'Ready', 'Delivered', 'Cancelled'].map(t => (
-                                <button key={t} onClick={() => setOrderFilter(t)} className={`px-3 py-1 rounded-lg text-xs font-bold cursor-pointer ${orderFilter === t ? 'bg-rose-600 text-white' : 'bg-zinc-800 text-zinc-400 hover:text-white'}`}>
-                                    {t}
+                        <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
+                            <div className="flex flex-wrap gap-1.5">
+                                {['All', 'New', 'Preparing', 'Ready', 'Delivered', 'Cancelled'].map(t => (
+                                    <button
+                                        key={t}
+                                        onClick={() => setOrderFilter(t)}
+                                        className={`px-3 py-1 rounded-lg text-xs font-bold cursor-pointer transition-colors ${orderFilter === t ? 'bg-rose-600 text-white' : 'bg-zinc-800 text-zinc-400 hover:text-white'}`}
+                                    >
+                                        {t}
+                                    </button>
+                                ))}
+                            </div>
+
+                            {/* زر حذف الطلبات المحددة أو حذف الكل (كمثال توضيحي) */}
+                            {orderFilter === 'Cancelled' && (
+                                <button
+                                    onClick={() => {
+                                        if (window.confirm("حذف جميع الطلبات الملغاة؟")) {
+                                            // يمكنك هنا تنفيذ منطق حذف متعدد أو تحديث الحالة
+                                            console.log("تم طلب حذف الطلبات الملغاة");
+                                        }
+                                    }}
+                                    className="text-[10px] bg-rose-950/30 text-rose-500 px-3 py-1 rounded-lg border border-rose-900/50 hover:bg-rose-900 cursor-pointer font-bold"
+                                >
+                                    🗑️ Clear Cancelled
                                 </button>
-                            ))}
+                            )}
                         </div>
 
 
