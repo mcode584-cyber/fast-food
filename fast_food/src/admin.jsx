@@ -87,7 +87,7 @@ function Dashboard() {
 
         } catch (err) {
             console.error("خطأ أثناء حذف الطلبات:", err);
-            alert("حدث خطأ أثناء محاولة الحذف.");
+            alert("حدث خطأ أثناء  الحذف.");
         }
     };
     const fetchOrders = async () => {
