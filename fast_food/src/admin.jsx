@@ -270,7 +270,7 @@ function Dashboard() {
                     <div className="bg-rose-600 w-12 h-12 rounded-2xl flex items-center justify-center font-black text-xl mx-auto mb-4 text-white shadow-lg shadow-rose-900/30">
                         FF
                     </div>
-                    <h2 className="text-xl font-black tracking-tight">FASTFUEL CONTROL PANEL</h2>
+                    <h2 className="text-xl font-black tracking-tight">FASTFOOD CONTROL PANEL</h2>
                     <p className="text-xs text-zinc-500 mt-1 mb-6 uppercase tracking-wider font-bold">Authorized Personnel Only</p>
 
                     <form onSubmit={handleLoginSubmit} className="space-y-4">
@@ -315,7 +315,7 @@ function Dashboard() {
                     <div className="flex items-center space-x-2 mb-8 border-b border-zinc-800 pb-4">
                         <div className="bg-[#e11d48] text-white p-2 rounded-lg font-black text-md">FF</div>
                         <div>
-                            <h1 className="text-md font-black tracking-tight">FASTFUEL</h1>
+                            <h1 className="text-md font-black tracking-tight">FASTFOOD</h1>
                             <p className="text-[9px] text-zinc-500 font-bold">CONTROL PANEL</p>
                         </div>
                     </div>

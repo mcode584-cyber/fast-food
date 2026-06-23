@@ -125,7 +125,7 @@ function FoodMenu() {
                 <div className="flex items-center space-x-2">
                     <div className="bg-[#facc15] text-[#121212] p-2 rounded-full font-black text-xl">⚡</div>
                     <div>
-                        <h1 className="text-xl font-black tracking-tighter leading-none">FASTFUEL</h1>
+                        <h1 className="text-xl font-black tracking-tighter leading-none">FASTFOOD</h1>
                         <span className="text-[10px] text-rose-200 font-bold tracking-widest">FAST FOOD & MORE</span>
                     </div>
                 </div>
