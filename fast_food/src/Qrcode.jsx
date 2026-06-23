@@ -266,7 +266,7 @@ function FoodMenu() {
                         <h3 className="text-lg font-black mb-2 flex items-center space-x-2">
                             <span>🍽️</span> <span>Table Selection</span>
                         </h3>
-                        <p className="text-xs text-zinc-400 mb-4">يرجى إدخال رقم الطاولة لإتمام الطلب.</p>
+                        <p className="text-xs text-zinc-400 mb-4">Please enter the table number to complete the order.</p>
 
                         <form onSubmit={handleCheckoutSubmit} className="space-y-4">
                             <input
