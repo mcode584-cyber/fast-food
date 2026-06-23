@@ -93,7 +93,7 @@ function FoodMenu() {
             const response = await axios.post(`${API_BASE_URL}/orders/`, orderData);
 
             if (response.status === 201 || response.status === 200) {
-                alert(`🎉 تم تأكيد طلبك بنجاح للطاولة رقم ${tableNumber}!`);
+                alert(`🎉 Your order for table number has been successfully confirmed${tableNumber}!`);
 
                 setCart([]);
                 setTableNumber('');
@@ -171,12 +171,12 @@ function FoodMenu() {
                 {loading ? (
                     <div className="text-center py-12 text-zinc-400">
                         <span className="animate-spin text-3xl block mb-2">⏳</span>
-                        <p className="text-sm">جاري تحميل القائمة من السيرفر...</p>
+                        <p className="text-sm">Loading the list from the server...</p>
                     </div>
                 ) : filteredFoods.length === 0 ? (
                     <div className="text-center py-12 text-zinc-500">
                         <span className="text-3xl block mb-2">🍽️</span>
-                        <p className="text-sm">لا توجد وجبات متوفرة في هذا القسم حالياً.</p>
+
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -225,7 +225,7 @@ function FoodMenu() {
                     {cart.length === 0 ? (
                         <div className="flex flex-col items-center justify-center h-full text-zinc-500 space-y-2">
                             <span className="text-4xl">🛒</span>
-                            <p className="text-sm text-center">السلة فارغة.</p>
+
                         </div>
                     ) : (
                         cart.map((item) => (
@@ -273,15 +273,15 @@ function FoodMenu() {
                                 type="number"
                                 required
                                 min="1"
-                                placeholder="أدخل رقم الطاولة (مثال: 5)"
+                                placeholder="Enter the table number"
                                 value={tableNumber}
                                 onChange={(e) => setTableNumber(e.target.value)}
                                 className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-white text-sm font-bold focus:outline-none focus:border-rose-600 placeholder-zinc-600 text-center"
                             />
 
                             <div className="flex space-x-3 pt-2">
-                                <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-bold py-3 rounded-xl">إلغاء</button>
-                                <button type="submit" className="flex-1 bg-rose-600 hover:bg-rose-700 text-white text-xs font-black py-3 rounded-xl shadow-lg shadow-rose-900/40">تأكيد وإرسال</button>
+                                <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-bold py-3 rounded-xl">cancellation</button>
+                                <button type="submit" className="flex-1 bg-rose-600 hover:bg-rose-700 text-white text-xs font-black py-3 rounded-xl shadow-lg shadow-rose-900/40"> Confirm and send</button>
                             </div>
                         </form>
                     </div>

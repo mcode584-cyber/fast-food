@@ -58,7 +58,7 @@ function Dashboard() {
         }
     };
     const handleDeleteOrder = async (id) => {
-        if (!window.confirm('هل أنت متأكد من حذف هذا الطلب نهائياً؟')) return;
+        if (!window.confirm('Are you sure you want to permanently delete this request?')) return;
         try {
             const res = await fetch(`${API_BASE_URL}/orders/${id}/`, { method: 'DELETE' });
             if (res.ok) {
@@ -71,7 +71,7 @@ function Dashboard() {
         }
     };
     const handleClearCancelled = async () => {
-        if (!window.confirm("هل أنت متأكد من حذف جميع الطلبات الملغاة نهائياً؟")) return;
+        if (!window.confirm("Are you sure you will permanently delete all cancelled orders?")) return;
 
         try {
             // 1. تصفية الطلبات الملغاة
